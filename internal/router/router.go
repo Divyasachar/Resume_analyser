@@ -12,7 +12,9 @@ func SetupRouter() *gin.Engine {
 
 	r := gin.Default()
 
-	uploader := upload.NewHandler()
+	storage := upload.NewLocalStorage()
+	service := upload.NewService(storage)
+	uploader := upload.NewHandler(service)
 
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
