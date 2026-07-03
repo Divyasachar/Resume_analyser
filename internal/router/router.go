@@ -1,0 +1,40 @@
+package router
+
+import (
+	"net/http"
+
+	"github.com/divya/resume-analyser/internal/config"
+	"github.com/divya/resume-analyser/internal/upload"
+	"github.com/gin-gonic/gin"
+)
+
+func SetupRouter() *gin.Engine {
+
+	r := gin.Default()
+
+	uploader := upload.NewHandler()
+
+	r.GET("/", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"application": config.AppConfig.AppName,
+			"version":     config.AppConfig.AppVersion,
+			"status":      "Running",
+		})
+	})
+
+	r.GET("/health", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"status": "UP",
+		})
+	})
+
+	r.GET("/version", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"version": config.AppConfig.AppVersion,
+		})
+	})
+
+	r.POST("/upload", uploader.Upload)
+
+	return r
+}
