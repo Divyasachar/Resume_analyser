@@ -57,7 +57,6 @@ func (h *Handler) Upload(c *gin.Context) {
 	}
 
 	text, err := p.ExtractText(response.Path)
-
 	if err != nil {
 
 		c.JSON(http.StatusInternalServerError,

@@ -3,6 +3,7 @@ package router
 import (
 	"net/http"
 
+	"github.com/divya/resume-analyser/internal/analyze"
 	"github.com/divya/resume-analyser/internal/config"
 	"github.com/divya/resume-analyser/internal/upload"
 	"github.com/gin-gonic/gin"
@@ -36,7 +37,9 @@ func SetupRouter() *gin.Engine {
 		})
 	})
 
+	analyzeService := analyze.NewService()
+	analyzeHandler := analyze.NewHandler(analyzeService)
 	r.POST("/upload", uploader.Upload)
-
+	r.POST("/analyze", analyzeHandler.Analyze)
 	return r
 }
