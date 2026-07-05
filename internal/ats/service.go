@@ -31,8 +31,8 @@ func (s *Service) Calculate(
 			"Missing "+skill,
 		)
 	}
-
 	return &Result{
+		Badge:      badge(score),
 		Score:      score,
 		Grade:      grade(score),
 		Strengths:  strengths,
@@ -46,4 +46,12 @@ func grade(score int) string {
 		}
 	}
 	return "F"
+}
+func badge(score int) string {
+
+	if score >= 95 {
+		return "Perfect Match"
+	}
+
+	return ""
 }
