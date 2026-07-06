@@ -1,6 +1,7 @@
-package parser
+package docx
 
 import (
+	"github.com/divya/resume-analyser/internal/parser"
 	"github.com/nguyenthenguyen/docx"
 )
 
@@ -23,4 +24,7 @@ func (d *DOCXParser) ExtractText(path string) (string, error) {
 	text := doc.Editable().GetContent()
 
 	return text, nil
+}
+func init() {
+	parser.Register("DOCX",".docx", &DOCXParser{})
 }

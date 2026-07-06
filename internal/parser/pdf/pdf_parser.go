@@ -1,6 +1,7 @@
-package parser
+package pdf
 
 import (
+	"github.com/divya/resume-analyser/internal/parser"
 	"github.com/ledongthuc/pdf"
 )
 
@@ -42,4 +43,7 @@ func (p *PDFParser) ExtractText(path string) (string, error) {
 	}
 
 	return text, nil
+}
+func init() {
+	parser.Register("PDF",".pdf", &PDFParser{})
 }

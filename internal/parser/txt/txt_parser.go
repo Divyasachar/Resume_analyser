@@ -1,7 +1,9 @@
-package parser
+package txt
 
 import (
 	"os"
+
+	"github.com/divya/resume-analyser/internal/parser"
 )
 
 type TXTParser struct{}
@@ -19,4 +21,7 @@ func (t *TXTParser) ExtractText(path string) (string, error) {
 	}
 
 	return string(data), nil
+}
+func init() {
+	parser.Register("txt", ".txt", &TXTParser{})
 }

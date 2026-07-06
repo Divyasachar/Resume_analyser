@@ -5,6 +5,10 @@ import (
 
 	"github.com/divya/resume-analyser/internal/analyze"
 	"github.com/divya/resume-analyser/internal/config"
+	"github.com/divya/resume-analyser/internal/parser"
+	_ "github.com/divya/resume-analyser/internal/parser/docx"
+	_ "github.com/divya/resume-analyser/internal/parser/pdf"
+	_ "github.com/divya/resume-analyser/internal/parser/txt"
 	"github.com/divya/resume-analyser/internal/upload"
 	"github.com/gin-gonic/gin"
 )
@@ -41,5 +45,6 @@ func SetupRouter() *gin.Engine {
 	analyzeHandler := analyze.NewHandler(analyzeService)
 	r.POST("/upload", uploader.Upload)
 	r.POST("/analyze", analyzeHandler.Analyze)
+	r.GET("/supported-formats",parser.registry())
 	return r
 }
